@@ -29,7 +29,7 @@
 	return self;
 }
 
-- (NSManagedObject*)insert {
+- (id)insert {
 	NSManagedObject* newObject = [NSEntityDescription insertNewObjectForEntityForName:entity_ inManagedObjectContext:object_.managedObjectContext];
 
 	NSMutableSet* set = [object_ mutableSetValueForKey:hasManyName_];

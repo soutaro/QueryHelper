@@ -20,7 +20,7 @@
 
 - (id)initWithObject:(NSManagedObject*)object hasMany:(NSString*)association entity:(NSString*)entity;
 
-- (NSManagedObject*)insert;
+- (id)insert;
 - (QHQuery*)query;
 
 @end
