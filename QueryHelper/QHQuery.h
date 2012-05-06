@@ -11,16 +11,17 @@
 
 @interface QHQuery : NSObject
 
-- (id)initWithEntity:(NSString*)entity;
+- (id)initWithEntity:(NSString*)entity context:(NSManagedObjectContext*)context;
++ (QHQuery*)newQueryWithEntity:(NSString*)entity context:(NSManagedObjectContext*)context;
 
 @property (nonatomic, readonly) NSArray* predicates;
 @property (nonatomic, readonly) NSArray* sortDescriptors;
 
 - (NSFetchRequest*)request;
 
-- (NSArray*)fetchFromContext:(NSManagedObjectContext*)context;
-- (id)firstFromContext:(NSManagedObjectContext*)context;
-- (NSUInteger)countFromContext:(NSManagedObjectContext*)context;
+- (NSArray*)fetch;
+- (id)first;
+- (NSUInteger)count;
 
 - (QHQuery*)where:(NSPredicate*)predicate __attribute__((objc_method_family(new)));
 
@@ -103,6 +104,6 @@
 - (QHQuery*)limit:(NSUInteger)limit;
 - (QHQuery*)offset:(NSUInteger)offset;
 
-- (NSNumber*)sum:(NSString*)attribute fromContext:(NSManagedObjectContext*)context;
+- (NSNumber*)sum:(NSString*)attribute;
 
 @end

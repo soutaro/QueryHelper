@@ -39,7 +39,7 @@
 }
 
 - (QHQuery *)query {
-	QHQuery* query = [[QHQuery alloc] initWithEntity:entity_];
+	QHQuery* query = [[QHQuery alloc] initWithEntity:entity_ context:object_.managedObjectContext];
 	NSSet* set = [object_ valueForKey:hasManyName_];
 	return [query where:[NSPredicate predicateWithFormat:@"SELF IN %@", set]];
 }

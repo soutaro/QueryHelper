@@ -10,7 +10,7 @@
 
 @interface QHQuery ()
 
-- (id)initWithEntity:(NSString*)entity predicates:(NSArray*)predicates sortDescriptors:(NSArray*)descrs limit:(NSUInteger)limit offset:(NSUInteger)offset;
+- (id)initWithEntity:(NSString*)entity context:(NSManagedObjectContext*)context predicates:(NSArray*)predicates sortDescriptors:(NSArray*)descrs limit:(NSUInteger)limit offset:(NSUInteger)offset;
 
 - (void)addPredicate:(NSPredicate*)predicate;
 - (void)addSortDescriptor:(NSSortDescriptor*)descriptor;
@@ -18,6 +18,8 @@
 @end
 
 @implementation QHQuery {
+	NSManagedObjectContext* context_;
+	
 	NSMutableArray* predicates_;
 	NSMutableArray* sortDescriptors_;
 	NSUInteger limit_;
@@ -30,13 +32,18 @@
 @synthesize sortDescriptors=sortDescriptors_;
 
 - (id)copy {
-	return [[QHQuery alloc] initWithEntity:entity_ predicates:predicates_ sortDescriptors:sortDescriptors_ limit:limit_ offset:offset_];
+	return [[QHQuery alloc] initWithEntity:entity_ context:context_ predicates:predicates_ sortDescriptors:sortDescriptors_ limit:limit_ offset:offset_];
 }
 
-- (id)initWithEntity:(NSString *)entity {
++ (QHQuery *)newQueryWithEntity:(NSString *)entity context:(NSManagedObjectContext *)context {
+	return [[self alloc] initWithEntity:entity context:context];
+}
+
+- (id)initWithEntity:(NSString *)entity context:(NSManagedObjectContext *)context {
 	self = [self init];
 	
 	entity_ = entity;
+	context_ = context;
 	predicates_ = [NSMutableArray new];
 	sortDescriptors_ = [NSMutableArray new];
 	limit_ = 0;
@@ -45,8 +52,8 @@
 	return self;
 }
 
-- (id)initWithEntity:(NSString *)entity predicates:(NSArray *)predicates sortDescriptors:(NSArray *)descrs limit:(NSUInteger)limit offset:(NSUInteger)offset {
-	self = [self initWithEntity:entity];
+- (id)initWithEntity:(NSString *)entity context:(NSManagedObjectContext *)context predicates:(NSArray *)predicates sortDescriptors:(NSArray *)descrs limit:(NSUInteger)limit offset:(NSUInteger)offset {
+	self = [self initWithEntity:entity context:context];
 	
 	[predicates_ addObjectsFromArray:predicates];
 	[sortDescriptors_ addObjectsFromArray:descrs];
@@ -70,9 +77,9 @@
 
 #pragma mark - Fetching result from NSManagedObjectContext
 
-- (NSArray *)fetchFromContext:(NSManagedObjectContext *)context {
+- (NSArray *)fetch {
 	NSError* error = nil;
-	NSArray* result = [context executeFetchRequest:[self request] error:&error];
+	NSArray* result = [context_ executeFetchRequest:[self request] error:&error];
 	
 	if (error) {
 		NSLog(@"QHQuery#fetchFromContext %@", error);
@@ -82,17 +89,17 @@
 	}
 }
 
-- (id)firstFromContext:(NSManagedObjectContext *)context {
-	NSArray* result = [[self limit:1] fetchFromContext:context];
+- (id)first {
+	NSArray* result = [[self limit:1] fetch];
 	return result.lastObject;
 }
 
-- (NSUInteger)countFromContext:(NSManagedObjectContext *)context {
-	return [context countForFetchRequest:[self request] error:nil];
+- (NSUInteger)count {
+	return [context_ countForFetchRequest:[self request] error:nil];
 }
 
--(NSNumber *)sum:(NSString *)attribute fromContext:(NSManagedObjectContext *)context {
-	NSPersistentStoreCoordinator* psc = [context persistentStoreCoordinator];
+-(NSNumber *)sum:(NSString *)attribute {
+	NSPersistentStoreCoordinator* psc = [context_ persistentStoreCoordinator];
 	NSManagedObjectModel* model = psc.managedObjectModel;
 	NSEntityDescription* descr = [[model entitiesByName] valueForKey:entity_];
 	NSAttributeDescription* attrDescr = [[descr attributesByName] valueForKey:attribute];
@@ -111,7 +118,7 @@
     [request setPropertiesToFetch:properties];
     [request setResultType:NSDictionaryResultType];
 	
-    NSArray *results = [context executeFetchRequest:request error:nil];
+    NSArray *results = [context_ executeFetchRequest:request error:nil];
 	if ([results count] == 0) {
 		return 0;
 	} else {
@@ -129,7 +136,11 @@
 }
 
 - (QHQuery *)where:(NSString *)attribute is:(id)value {
-	return [self where:[NSPredicate predicateWithFormat:@"%K = %@", attribute, value]];
+	if ([value isKindOfClass:[NSArray class]] || [value isKindOfClass:[NSSet class]]) {
+		return [self where:attribute appearsIn:value];
+	} else {
+		return [self where:[NSPredicate predicateWithFormat:@"%K = %@", attribute, value]];
+	}
 }
 
 - (QHQuery *)where:(NSString *)attribute isNot:(id)value {
@@ -204,11 +215,11 @@
 #pragma mark -
 
 - (QHQuery *)limit:(NSUInteger)limit {
-	return[[QHQuery alloc] initWithEntity:entity_ predicates:predicates_ sortDescriptors:sortDescriptors_ limit:limit offset:offset_];
+	return[[QHQuery alloc] initWithEntity:entity_ context:context_ predicates:predicates_ sortDescriptors:sortDescriptors_ limit:limit offset:offset_];
 }
 
 - (QHQuery *)offset:(NSUInteger)offset {
-	return[[QHQuery alloc] initWithEntity:entity_ predicates:predicates_ sortDescriptors:sortDescriptors_ limit:limit_ offset:offset];
+	return[[QHQuery alloc] initWithEntity:entity_ context:context_ predicates:predicates_ sortDescriptors:sortDescriptors_ limit:limit_ offset:offset];
 }
 
 #pragma mark - Private Utilities
