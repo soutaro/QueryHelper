@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'QueryHelper' target in the 'QueryHelper' project
+//
+
+#ifdef __OBJC__
+	#import <Foundation/Foundation.h>
+#endif
