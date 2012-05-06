@@ -12,7 +12,6 @@
 	__weak NSManagedObject* object_;
 	NSString* hasManyName_;
 	NSString* entity_;
-	NSString* belongsToName_;
 }
 
 @synthesize object=object_;
@@ -20,13 +19,12 @@
 @synthesize entityName=entity_;
 @synthesize inverseName=belongsToName_;
 
-- (id)initWithObject:(NSManagedObject *)object hasMany:(NSString *)association entity:(NSString *)entity belongsTo:(NSString *)inverse {
+- (id)initWithObject:(NSManagedObject *)object hasMany:(NSString *)association entity:(NSString *)entity {
 	self = [self init];
 	
 	object_ = object;
 	hasManyName_ = association;
 	entity_ = entity;
-	belongsToName_ = inverse;
 	
 	return self;
 }

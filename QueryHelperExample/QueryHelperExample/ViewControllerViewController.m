@@ -80,12 +80,12 @@
 	NSLog(@"%@", [query sum:@"attr2" fromContext:context_]);
 	
 	TestSet* set = [NSEntityDescription insertNewObjectForEntityForName:@"TestSet" inManagedObjectContext:context_];
-	QHRelation* rel = [[QHRelation alloc] initWithObject:set hasMany:@"entities" entity:@"TestEntity" belongsTo:@"set"];
+	QHRelation* rel = [[QHRelation alloc] initWithObject:set hasMany:@"entities" entity:@"TestEntity"];
 	
 	[set addEntitiesObject:t1];
 	[set addEntitiesObject:t2];
 	
-	TestEntity* t3 = [rel insert];
+	TestEntity* t3 = (TestEntity*)[rel insert];
 	t3.attr4 = [NSNumber numberWithBool:NO];
 	
 	[context_ obtainPermanentIDsForObjects:[context_.insertedObjects sortedArrayUsingDescriptors:[NSArray array]] error:nil];
