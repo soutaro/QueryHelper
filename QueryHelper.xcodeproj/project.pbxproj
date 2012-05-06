@@ -8,15 +8,33 @@
 
 /* Begin PBXBuildFile section */
 		ABD7A89F15562F6300CF67DE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABD7A89E15562F6200CF67DE /* Foundation.framework */; };
-		ABD7A8A515562F6300CF67DE /* QueryHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = ABD7A8A415562F6300CF67DE /* QueryHelper.m */; };
+		ABD7A8AD15562F7800CF67DE /* QHQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = ABD7A8AB15562F7800CF67DE /* QHQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ABD7A8AE15562F7800CF67DE /* QHQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = ABD7A8AC15562F7800CF67DE /* QHQuery.m */; };
+		ABD7A8B115562FE000CF67DE /* QHRelation.h in Headers */ = {isa = PBXBuildFile; fileRef = ABD7A8AF15562FE000CF67DE /* QHRelation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ABD7A8B215562FE000CF67DE /* QHRelation.m in Sources */ = {isa = PBXBuildFile; fileRef = ABD7A8B015562FE000CF67DE /* QHRelation.m */; };
+		ABDCAC2115565EF3005A106F /* QueryHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = ABD7A8A315562F6300CF67DE /* QueryHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		ABDCAC1915565E48005A106F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ABDCAC1515565E47005A106F /* QueryHelperExample.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = ABDCABF515565E47005A106F;
+			remoteInfo = QueryHelperExample;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		ABD7A89B15562F6200CF67DE /* libQueryHelper.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libQueryHelper.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABD7A89E15562F6200CF67DE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		ABD7A8A215562F6300CF67DE /* QueryHelper-Prefix.pch */ = {isa = PBXFileReference; path = "QueryHelper-Prefix.pch"; sourceTree = "<group>"; };
-		ABD7A8A315562F6300CF67DE /* QueryHelper.h */ = {isa = PBXFileReference; path = QueryHelper.h; sourceTree = "<group>"; };
-		ABD7A8A415562F6300CF67DE /* QueryHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QueryHelper.m; sourceTree = "<group>"; };
+		ABD7A8A215562F6300CF67DE /* QueryHelper-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "QueryHelper-Prefix.pch"; sourceTree = "<group>"; };
+		ABD7A8A315562F6300CF67DE /* QueryHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QueryHelper.h; sourceTree = "<group>"; };
+		ABD7A8AB15562F7800CF67DE /* QHQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QHQuery.h; sourceTree = "<group>"; };
+		ABD7A8AC15562F7800CF67DE /* QHQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QHQuery.m; sourceTree = "<group>"; };
+		ABD7A8AF15562FE000CF67DE /* QHRelation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QHRelation.h; sourceTree = "<group>"; };
+		ABD7A8B015562FE000CF67DE /* QHRelation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QHRelation.m; sourceTree = "<group>"; };
+		ABDCAC1515565E47005A106F /* QueryHelperExample.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = QueryHelperExample.xcodeproj; path = QueryHelperExample/QueryHelperExample.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -34,6 +52,7 @@
 		ABD7A89015562F6200CF67DE = {
 			isa = PBXGroup;
 			children = (
+				ABDCAC1515565E47005A106F /* QueryHelperExample.xcodeproj */,
 				ABD7A8A015562F6300CF67DE /* QueryHelper */,
 				ABD7A89D15562F6200CF67DE /* Frameworks */,
 				ABD7A89C15562F6200CF67DE /* Products */,
@@ -60,8 +79,11 @@
 			isa = PBXGroup;
 			children = (
 				ABD7A8A315562F6300CF67DE /* QueryHelper.h */,
-				ABD7A8A415562F6300CF67DE /* QueryHelper.m */,
 				ABD7A8A115562F6300CF67DE /* Supporting Files */,
+				ABD7A8AB15562F7800CF67DE /* QHQuery.h */,
+				ABD7A8AC15562F7800CF67DE /* QHQuery.m */,
+				ABD7A8AF15562FE000CF67DE /* QHRelation.h */,
+				ABD7A8B015562FE000CF67DE /* QHRelation.m */,
 			);
 			path = QueryHelper;
 			sourceTree = "<group>";
@@ -74,6 +96,14 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		ABDCAC1615565E47005A106F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				ABDCAC1A15565E48005A106F /* QueryHelperExample.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -81,6 +111,9 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ABD7A8AD15562F7800CF67DE /* QHQuery.h in Headers */,
+				ABD7A8B115562FE000CF67DE /* QHRelation.h in Headers */,
+				ABDCAC2115565EF3005A106F /* QueryHelper.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -122,6 +155,12 @@
 			mainGroup = ABD7A89015562F6200CF67DE;
 			productRefGroup = ABD7A89C15562F6200CF67DE /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = ABDCAC1615565E47005A106F /* Products */;
+					ProjectRef = ABDCAC1515565E47005A106F /* QueryHelperExample.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				ABD7A89A15562F6200CF67DE /* QueryHelper */,
@@ -129,12 +168,23 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXReferenceProxy section */
+		ABDCAC1A15565E48005A106F /* QueryHelperExample.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = QueryHelperExample.app;
+			remoteRef = ABDCAC1915565E48005A106F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
 /* Begin PBXSourcesBuildPhase section */
 		ABD7A89715562F6200CF67DE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ABD7A8A515562F6300CF67DE /* QueryHelper.m in Sources */,
+				ABD7A8AE15562F7800CF67DE /* QHQuery.m in Sources */,
+				ABD7A8B215562FE000CF67DE /* QHRelation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -226,6 +276,7 @@
 				ABD7A8AA15562F6300CF67DE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

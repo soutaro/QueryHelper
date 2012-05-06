@@ -8,6 +8,5 @@
 
 #import <Foundation/Foundation.h>
 
-@interface QueryHelper : NSObject
-
-@end
+#import "QHQuery.h"
+#import "QHRelation.h"
