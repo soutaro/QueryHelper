@@ -11,6 +11,7 @@
 @implementation QHRelation {
 	__weak NSManagedObject* object_;
 	NSString* hasManyName_;
+	NSString* inverse_;
 	NSString* entity_;
 }
 
@@ -26,6 +27,15 @@
 	hasManyName_ = association;
 	entity_ = entity;
 	
+	NSPersistentStoreCoordinator* psc = [object.managedObjectContext persistentStoreCoordinator];
+	NSManagedObjectModel* model = psc.managedObjectModel;
+	NSEntityDescription* descr = [[model entitiesByName] valueForKey:NSStringFromClass([object_ class])];
+	NSRelationshipDescription* relDescr = [[descr relationshipsByName] objectForKey:association];
+	NSRelationshipDescription* invDescr = relDescr.inverseRelationship;
+	if (invDescr) {
+		inverse_ = invDescr.name;
+	}
+	
 	return self;
 }
 
@@ -40,8 +50,15 @@
 
 - (QHQuery *)query {
 	QHQuery* query = [[QHQuery alloc] initWithEntity:entity_ context:object_.managedObjectContext];
-	NSSet* set = [object_ valueForKey:hasManyName_];
-	return [query where:[NSPredicate predicateWithFormat:@"SELF IN %@", set]];
+	if (!object_) {
+		NSLog(@"QHRelation:: object is nil now (relation = %@, inverse = %@, destination = %@)", hasManyName_, inverse_, entity_);
+		return nil;
+	}
+	if (!inverse_) {
+		NSLog(@"QHRelation:: no inverse relation for %@.%@", NSStringFromClass([object_ class]), hasManyName_);
+		return nil;
+	}
+	return [query where:[NSPredicate predicateWithFormat:@"%K = %@", inverse_, object_]];
 }
 
 @end
