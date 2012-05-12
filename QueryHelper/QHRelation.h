@@ -18,7 +18,7 @@
 @property (nonatomic, readonly) NSString* entityName;
 @property (nonatomic, readonly) NSString* inverseName;
 
-- (id)initWithObject:(NSManagedObject*)object hasMany:(NSString*)association entity:(NSString*)entity;
+- (id)initWithObject:(NSManagedObject*)object hasMany:(NSString*)association;
 
 - (id)insert;
 - (QHQuery*)query;

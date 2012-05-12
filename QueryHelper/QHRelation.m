@@ -20,12 +20,11 @@
 @synthesize entityName=entity_;
 @synthesize inverseName=belongsToName_;
 
-- (id)initWithObject:(NSManagedObject *)object hasMany:(NSString *)association entity:(NSString *)entity {
+- (id)initWithObject:(NSManagedObject *)object hasMany:(NSString *)association {
 	self = [self init];
 	
 	object_ = object;
 	hasManyName_ = association;
-	entity_ = entity;
 	
 	NSPersistentStoreCoordinator* psc = [object.managedObjectContext persistentStoreCoordinator];
 	NSManagedObjectModel* model = psc.managedObjectModel;
@@ -35,6 +34,8 @@
 	if (invDescr) {
 		inverse_ = invDescr.name;
 	}
+	
+	entity_ = relDescr.destinationEntity.name;
 	
 	return self;
 }
