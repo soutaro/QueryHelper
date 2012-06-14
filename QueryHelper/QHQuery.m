@@ -95,7 +95,8 @@
 }
 
 - (NSUInteger)count {
-	return [context_ countForFetchRequest:[self request] error:nil];
+	[self first];
+	return [context_ countForFetchRequest:self.request error:nil];
 }
 
 -(NSNumber *)sum:(NSString *)attribute {
