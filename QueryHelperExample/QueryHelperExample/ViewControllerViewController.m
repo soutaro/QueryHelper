@@ -63,24 +63,14 @@
 	t2.attr3 = @"hello world";
 	t2.attr4 = [NSDecimalNumber numberWithBool:NO];
 	
-	QHQuery* query = [[QHQuery alloc] initWithEntity:@"TestEntity"];
-	
-	NSLog(@"%@", [query fetchFromContext:context_]);
-	NSLog(@"%@", [[query where:@"attr1" is:[NSNumber numberWithInt:1]] fetchFromContext:context_]);
-	NSLog(@"%@", [[query where:@"attr3" beginsWith:@"hello"] fetchFromContext:context_]);
-	
-	NSLog(@"%@", [query sum:@"attr1" fromContext:context_]);
-	NSLog(@"%@", [query sum:@"attr2" fromContext:context_]);
+	QHQuery* query = [[QHQuery alloc] initWithEntity:@"TestEntity" context:context_];
 	
 	[context_ obtainPermanentIDsForObjects:[context_.insertedObjects sortedArrayUsingDescriptors:[NSArray array]] error:nil];
 	[context_ save:nil];
 	[self.appDelegate saveContext];
 	
-	NSLog(@"%@", [query sum:@"attr1" fromContext:context_]);
-	NSLog(@"%@", [query sum:@"attr2" fromContext:context_]);
-	
 	TestSet* set = [NSEntityDescription insertNewObjectForEntityForName:@"TestSet" inManagedObjectContext:context_];
-	QHRelation* rel = [[QHRelation alloc] initWithObject:set hasMany:@"entities" entity:@"TestEntity"];
+	QHRelation* rel = [[QHRelation alloc] initWithObject:set hasMany:@"entities"];
 	
 	[set addEntitiesObject:t1];
 	[set addEntitiesObject:t2];
@@ -96,7 +86,7 @@
 	
 	NSLog(@"%d", set == t3.set);
 	
-	NSLog(@"%@", [[query where:@"set" is:set] fetchFromContext:context_]);
+	NSLog(@"%@", [[query where:@"set" is:set] fetch]);
 }
 
 @end

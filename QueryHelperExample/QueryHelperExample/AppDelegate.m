@@ -8,7 +8,8 @@
 
 #import "AppDelegate.h"
 
-#import "QueryHelper.h"
+#import <QueryHelper/QueryHelper.h>
+
 #import "ViewControllerViewController.h"
 
 @implementation AppDelegate

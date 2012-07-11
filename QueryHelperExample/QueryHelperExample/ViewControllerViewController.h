@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+#import <QueryHelper/QueryHelper.h>
+
 #import "AppDelegate.h"
 #import "TestEntity.h"
-#import "QueryHelper.h"
 #import "TestSet.h"
 
 @interface ViewControllerViewController : UIViewController
