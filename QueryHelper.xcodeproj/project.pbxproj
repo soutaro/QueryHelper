@@ -238,6 +238,7 @@
 		ABD7A8A915562F6300CF67DE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/QueryHelper.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "QueryHelper/QueryHelper-Prefix.pch";
@@ -251,6 +252,7 @@
 		ABD7A8AA15562F6300CF67DE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/QueryHelper.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "QueryHelper/QueryHelper-Prefix.pch";
